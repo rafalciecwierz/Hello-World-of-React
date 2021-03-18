@@ -1,11 +1,12 @@
-console.log("This is react app")
+"use strict";
 
+console.log("This is react app");
 
 // JSX - JavaScript XML
 var template = React.createElement(
-    "h1",
-    { id: "someid" },
-    "Hello world with old syntax"
+  "p",
+  null,
+  "Does this change?"
 );
 var appRoot = document.getElementById('app');
 
