@@ -1,11 +1,19 @@
 console.log("This is react app")
 
 
+const app =  {
+    title: 'Indecision',
+    subtitle: 'This app will make every decision easy!',
+    option: ['One', 'Two', 'Three']
+};
+
+
 // JSX - JavaScript XML
-var template = (
+const template = (
     <div>
-        <h1>Does this change?</h1>
-        <p>This is a paragraph</p>
+        <h1>{app.title}</h1>
+        {app.subtitle && <p>{app.subtitle}</p>}
+        <p>{ ( app.option && app.option.length > 0 )  ? "Here are your option" : "No options" }</p>
         <ol>
             <li>This is list item</li>
             <li>This is list item</li>
@@ -13,16 +21,28 @@ var template = (
     </div>
 );
 
+const user = {
+    name: 'Rafcio C.',
+    age: 30,
+    location: 'Poznań'
+};
 
-var templateTwo = (
+
+function getLocation(location){
+    if(location) {
+        return <p>Location: {location}</p>
+    }
+}
+
+const templateTwo = (
     <div>
-        <h1>Rafał Ciećwierz</h1>
-        <p>Age: 29</p>
-        <p>Location: Poznań</p>
+        <h1>{user.name ? user.name : "Anonymous"}</h1>
+        {user.age > 18 && <p>Age: {user.age}</p>}
+        {getLocation(user.location)}
     </div>
 );
 
 
-var appRoot = document.getElementById('app');
+const appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);

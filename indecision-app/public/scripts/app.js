@@ -1,57 +1,82 @@
-"use strict";
+'use strict';
 
 console.log("This is react app");
 
+var app = {
+    title: 'Indecision',
+    subtitle: 'This app will make every decision easy!',
+    option: ['One', 'Two', 'Three']
+};
+
 // JSX - JavaScript XML
 var template = React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(
-        "h1",
+        'h1',
         null,
-        "Does this change?"
+        app.title
+    ),
+    app.subtitle && React.createElement(
+        'p',
+        null,
+        app.subtitle
     ),
     React.createElement(
-        "p",
+        'p',
         null,
-        "This is a paragraph"
+        app.option && app.option.length > 0 ? "Here are your option" : "No options"
     ),
     React.createElement(
-        "ol",
+        'ol',
         null,
         React.createElement(
-            "li",
+            'li',
             null,
-            "This is list item"
+            'This is list item'
         ),
         React.createElement(
-            "li",
+            'li',
             null,
-            "This is list item"
+            'This is list item'
         )
     )
 );
 
+var user = {
+    name: 'Rafcio C.',
+    age: 30,
+    location: 'Poznań'
+};
+
+function getLocation(location) {
+    if (location) {
+        return React.createElement(
+            'p',
+            null,
+            'Location: ',
+            location
+        );
+    }
+}
+
 var templateTwo = React.createElement(
-    "div",
+    'div',
     null,
     React.createElement(
-        "h1",
+        'h1',
         null,
-        "Rafa\u0142 Cie\u0107wierz"
+        user.name ? user.name : "Anonymous"
     ),
-    React.createElement(
-        "p",
+    user.age > 18 && React.createElement(
+        'p',
         null,
-        "Age: 29"
+        'Age: ',
+        user.age
     ),
-    React.createElement(
-        "p",
-        null,
-        "Location: Pozna\u0144"
-    )
+    getLocation(user.location)
 );
 
 var appRoot = document.getElementById('app');
 
-ReactDOM.render(templateTwo, appRoot);
+ReactDOM.render(template, appRoot);
