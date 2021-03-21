@@ -21,28 +21,37 @@ const template = (
     </div>
 );
 
-const user = {
-    name: 'Rafcio C.',
-    age: 30,
-    location: 'Poznań'
+let count = 0;
+
+const addOne = () => {
+    count += 1;
+    console.log('addOne');
+    console.log(count);
 };
 
+const minusOne = () => {
+    count -= 1;
+    console.log('minusOne');
+    console.log(count);
+};
 
-function getLocation(location){
-    if(location) {
-        return <p>Location: {location}</p>
-    }
-}
+const reset = () => {
+    count = 0;
+    console.log('reset');
+    console.log(count);
+};
 
 const templateTwo = (
     <div>
-        <h1>{user.name ? user.name : "Anonymous"}</h1>
-        {user.age > 18 && <p>Age: {user.age}</p>}
-        {getLocation(user.location)}
+        <h1>Count: {count}</h1>
+        <button onClick={addOne}>+1</button>
+        <button onClick={minusOne}>-1</button>
+        <button onClick={reset}>Reset</button>
     </div>
 );
 
 
-const appRoot = document.getElementById('app');
 
-ReactDOM.render(template, appRoot);
+// Mounting the template
+const appRoot = document.getElementById('app');
+ReactDOM.render(templateTwo, appRoot);
