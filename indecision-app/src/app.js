@@ -61,52 +61,44 @@ class IndecisionApp extends React.Component {
     }
 }
 
-class Header extends React.Component {
-    render(){
-        return (
-            <div>
-                <h1>{this.props.title}</h1>
-                <h2>{this.props.subtitle}</h2>
-            </div>
-        )
-    }
+const Header = (props) => {
+    return (
+        <div>
+            <h1>{props.title}</h1>
+            <h2>{props.subtitle}</h2>
+        </div>
+    )
 }
 
+const Action = (props) => {
+    return (
+        <div>
+            <button
+            disabled={props.hasOptions}
+            onClick={props.handlePick}>
+                What should I do?
+            </button>
+        </div>
+    );
 
-class Action extends React.Component {
-    render(){
-        return (
-            <div>
-                <button
-                disabled={this.props.hasOptions}
-                onClick={this.props.handlePick}>
-                    What should I do?
-                </button>
-            </div>
-        );
-    }
 }
 
-
-class Options extends React.Component {
-    render(){
-        return (
-            <div>
-                <button onClick={this.props.handleDeleteOptions}>Remove all</button>
-                {this.props.options.length > 0 && <p>These are your options</p> }
-                {this.props.options.map((option, index) => <Option key={index} option={option} />)}
-            </div>
-        );
-    }
+const Options = (props) => {
+    return (
+        <div>
+            <button onClick={props.handleDeleteOptions}>Remove all</button>
+            {props.options.length > 0 && <p>These are your options</p> }
+            {props.options.map((option, index) => <Option key={index} option={option} />)}
+        </div>
+    );
 }
 
-class Option extends React.Component {
-    render(){
-        return (
-            <p>{this.props.option}</p>
-        );
-    }
+const Option = (props) => {
+    return (
+        <p>{props.option}</p>
+    );
 }
+
 
 class AddOption extends React.Component {
     constructor(props){
@@ -138,7 +130,6 @@ class AddOption extends React.Component {
         );
     }
 }
-
 
 
 ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
