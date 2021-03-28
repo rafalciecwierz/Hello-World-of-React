@@ -19,19 +19,26 @@ var IndecisionApp = function (_React$Component) {
         _this.handleDeleteOptions = _this.handleDeleteOptions.bind(_this);
         _this.handlePick = _this.handlePick.bind(_this);
         _this.handleAddOption = _this.handleAddOption.bind(_this);
+        _this.handleDeleteOption = _this.handleDeleteOption.bind(_this);
         _this.state = {
-            options: []
+            options: props.options
         };
         return _this;
     }
 
+    //Lifecycle methdods
+
+
     _createClass(IndecisionApp, [{
+        key: 'componentDidMount',
+        value: function componentDidMount() {
+            console.log("siema");
+        }
+    }, {
         key: 'handleDeleteOptions',
         value: function handleDeleteOptions() {
             this.setState(function () {
-                return {
-                    options: []
-                };
+                return { options: [] };
             });
         }
     }, {
@@ -57,21 +64,32 @@ var IndecisionApp = function (_React$Component) {
             });
         }
     }, {
+        key: 'handleDeleteOption',
+        value: function handleDeleteOption(option) {
+            this.setState(function (prevState) {
+                return {
+                    options: prevState.options.filter(function (opt) {
+                        return opt !== option;
+                    })
+                };
+            });
+        }
+    }, {
         key: 'render',
         value: function render() {
-            var title = 'Indecision';
             var subtitle = 'Put your life in the hands of a computer';
             return React.createElement(
                 'div',
                 null,
-                React.createElement(Header, { title: title, subtitle: subtitle }),
+                React.createElement(Header, { subtitle: subtitle }),
                 React.createElement(Action, {
                     hasOptions: this.state.options.length > 0 ? false : true,
                     handlePick: this.handlePick
                 }),
                 React.createElement(Options, {
                     options: this.state.options,
-                    handleDeleteOptions: this.handleDeleteOptions
+                    handleDeleteOptions: this.handleDeleteOptions,
+                    handleDeleteOption: this.handleDeleteOption
                 }),
                 React.createElement(AddOption, {
                     handleAddOption: this.handleAddOption
@@ -83,6 +101,10 @@ var IndecisionApp = function (_React$Component) {
     return IndecisionApp;
 }(React.Component);
 
+IndecisionApp.defaultProps = {
+    options: []
+};
+
 var Header = function Header(props) {
     return React.createElement(
         'div',
@@ -92,12 +114,16 @@ var Header = function Header(props) {
             null,
             props.title
         ),
-        React.createElement(
+        props.subtitle && React.createElement(
             'h2',
             null,
             props.subtitle
         )
     );
+};
+
+Header.defaultProps = {
+    title: 'Indecision App'
 };
 
 var Action = function Action(props) {
@@ -129,16 +155,33 @@ var Options = function Options(props) {
             'These are your options'
         ),
         props.options.map(function (option, index) {
-            return React.createElement(Option, { key: index, option: option });
+            return React.createElement(Option, {
+                key: index,
+                option: option,
+                handleDeleteOption: props.handleDeleteOption
+            });
         })
     );
 };
 
 var Option = function Option(props) {
     return React.createElement(
-        'p',
+        'div',
         null,
-        props.option
+        React.createElement(
+            'p',
+            null,
+            props.option
+        ),
+        React.createElement(
+            'button',
+            {
+                onClick: function onClick(e) {
+                    props.handleDeleteOption(props.option);
+                }
+            },
+            'Remove'
+        )
     );
 };
 
