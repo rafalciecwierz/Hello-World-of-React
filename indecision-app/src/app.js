@@ -1,9 +1,7 @@
-import minus from './utils.js'
-import {isAdult, canDrink} from './person.js';
+import React from 'react'
+import ReactDOM from 'react-dom'
 
-console.log("app.js is running!");
+// COMPONENTS
+import IndecisionApp from './components/IndecissionApp'
 
-console.log(minus(2,3));
-
-
-// console.log(isAdult(20), canDrink(20));
+ReactDOM.render(<IndecisionApp />, document.getElementById('app'));
