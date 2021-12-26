@@ -22,14 +22,23 @@ store.dispatch(addExpense({
 store.dispatch(addExpense({
     description: 'Gas bill',
     amount: 800,
+    createdAt: 1000,
     note: 'Less farts, more cakes'
 }));
 
-store.dispatch(setTextFilter('bill'));
+store.dispatch(addExpense({
+    description: 'Rent',
+    amount: 10950,
+    note: 'Less farts, more cakes'
+}));
 
-setTimeout(()=>{
-    store.dispatch(setTextFilter('gas'));
-},3000)
+store.dispatch(addExpense({
+    description: 'Media',
+    amount: 1200,
+    note: 'Mobile, TV, Netflix',
+    createdAt: 500
+}));
+
 
 const state = store.getState();
 const visibleExpenses = getVisibleExpenses(state.expenses, state.filters);
