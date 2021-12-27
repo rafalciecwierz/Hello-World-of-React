@@ -14,40 +14,65 @@ export default class ExpenseForm extends React.Component {
         note: '',
         amount: '',
         createdAt: moment(),
-        calendarFocused: false
+        calendarFocused: false,
+        error: ''
     };
 
     onDescriptionChange = (e) => {
         const description = e.target.value;
+
         this.setState(() => ({ description }));
     };
 
     onNoteChange = (e) => {
         const note = e.target.value;
+
         this.setState(() => ({ note }));
     };
 
     onAmountChange = (e) => {
         const amount = e.target.value;
 
-
-        if (amount.match(/^\d*(\.\d{0,2})?$/)) {
+        if (!amount || amount.match(/^\d\d*(\.\d{0,2})?$/)) {
             this.setState(() => ({ amount }));
         }
     };
 
     onDateChange = (createdAt) => {
-        this.setState(() => ({ createdAt }));
+        if (createdAt) {
+            this.setState(() => ({ createdAt }));
+        }
     };
 
-    onFocusChange = ({ focused } ) => {
-        this.setState(() => ({ calendarFocused: focused  }));
+    onFocusChange = ({ focused }) => {
+        this.setState(() => ({ calendarFocused: focused }));
+    };
+
+    onSubmit = (e) => {
+        e.preventDefault();
+
+        if (!this.state.description || !this.state.amount) {
+            // Set error eq to 'Please provide description and amount'
+            this.setState(() => ({ error: 'Please provide description and amount'}))
+        } else {
+            // Clear the error
+            this.setState(() => ({ error: ''}))
+            // console.log('Submitted  ');
+            this.props.onSubmit(({
+                description: this.state.description,
+                amount: parseFloat(this.state.amount, 10) * 100,
+                createdAt: this.state.createdAt.valueOf(),
+                note: this.state.note 
+            }))
+        }
     };
 
     render() {
         return (
             <div>
-                <form>
+                { this.state.error && <p>{this.state.error}</p>
+                }
+                <form onSubmit={this.onSubmit}>
                     <input
                         type="text"
                         placeholder="Description"
