@@ -63,7 +63,7 @@ test('should edit the expense with non existing id', () => {
         type: 'EDIT_EXPENSE',
         id: '-1',
         updates: {
-            note: 'Non existing expense'
+            note: 'Non existing expense '
         }
     })
 
